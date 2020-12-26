@@ -1,0 +1,50 @@
+{
+  "name": "tecnodesignc/menu-module",
+  "type": "encore-module",
+  "description": "Menu module for EncoreCMS. Handles all the menus.",
+  "keywords": [
+    "encorecms",
+    "menu",
+    "tree",
+    "nested sets"
+  ],
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Marcos Rativa",
+      "email": "marcos21.009@gmail.com",
+      "role": "Developer"
+    }
+  ],
+  "support": {
+    "email": "support@tecnodesidn.com.co",
+    "issues": "https://github.com/tecnodesignc/Menu/issues",
+    "source": "https://github.com/tecnodesignc/Menu"
+  },
+  "require": {
+    "php": ">=7.1.0",
+    "composer/installers": "~1.0",
+    "nwidart/laravel-menus": "~1.0",
+    "typicms/nestablecollection": "1.1"
+  },
+  "require-dev": {
+    "phpunit/phpunit": "~6.0",
+    "orchestra/testbench": "3.5.*",
+    "fzaninotto/faker": "1.4.0",
+    "doctrine/dbal": "~2.5",
+    "tecnodesignc/page-module": "~1.0"
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "Modules\\Menu\\": ".",
+      "Modules\\": "Modules/"
+    }
+  },
+  "extra": {
+    "branch-alias": {
+      "dev-master": "1.0.x-dev"
+    }
+  },
+  "minimum-stability": "dev",
+  "prefer-stable": true
+}
