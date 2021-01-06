@@ -32,7 +32,7 @@
     "orchestra/testbench": "3.5.*",
     "fzaninotto/faker": "1.4.0",
     "doctrine/dbal": "~2.5",
-    "tecnodesignc/page-module": "~1.0"
+    "tecnodesignc/page-module": "dev-master"
   },
   "autoload-dev": {
     "psr-4": {
