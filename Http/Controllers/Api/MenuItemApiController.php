@@ -13,7 +13,7 @@ use Modules\Menu\Entities\Menu;
 use Modules\Menu\Transformers\MenuitemTransformer;
 
 // Base Api
-use Modules\Ihelpers\Http\Controllers\Api\BaseApiController;
+use Modules\Core\Http\Controllers\Api\BaseApiController;
 
 use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 use Modules\Menu\Services\MenuItemUriGenerator;

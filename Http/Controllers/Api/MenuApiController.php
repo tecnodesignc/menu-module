@@ -9,7 +9,7 @@ use Modules\Menu\Http\Requests\CreateMenuRequest;
 use Modules\Menu\Http\Requests\UpdateMenuRequest;
 
 // Base Api
-use Modules\Ihelpers\Http\Controllers\Api\BaseApiController;
+use Modules\Core\Http\Controllers\Api\BaseApiController;
 
 use Modules\Menu\Repositories\MenuRepository;
 
