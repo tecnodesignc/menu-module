@@ -29,7 +29,7 @@ class NavbarPresenter extends Presenter
    */
   public function getMenuWithoutDropdownWrapper($item)
   {
-    return '<li class="nav-item"'. $this->getActiveState($item) . '><a class="nav-link" href="' . $item->getUrl() . '" ' . $item->getAttributes() . '>' . $item->getIcon() . '' . $item->title . '</a></li>' . PHP_EOL;
+    return '<li class="nav-item"'. $this->getActiveState($item) . '><a class="nav-link '.($item->attributes['class'] ?? '').'" href="' . $item->getUrl() . '" ' . $item->getAttributes() . '>' . $item->getIcon() . '' . $item->title . '</a></li>' . PHP_EOL;
   }
   
   /**

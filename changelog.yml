@@ -2,3 +2,9 @@ url: https://github.com/EncoreCms/Platform
 versions:
    "1.0.0":
        - Initial Version Module
+   "1.0.1":
+     addes:
+        - NoCleaning funtion in MenuItemController and EloquentMenuItemRepository
+        - Attribute class in navbarPresenter and  NavbarRightPresenter
+        - getItemBy and getTtem in EloquentMenuRepository
+
