@@ -14,15 +14,15 @@ class MenuItemController extends Controller
     /**
      * @var Repository
      */
-    private $cache;
+    private Repository $cache;
     /**
      * @var MenuOrdener
      */
-    private $menuOrdener;
+    private MenuOrdener $menuOrdener;
     /**
      * @var MenuItemRepository
      */
-    private $menuItem;
+    private MenuItemRepository $menuItem;
 
     public function __construct(MenuOrdener $menuOrdener, Repository $cache, MenuItemRepository $menuItem)
     {

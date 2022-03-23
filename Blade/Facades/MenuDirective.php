@@ -6,7 +6,7 @@ use Illuminate\Support\Facades\Facade;
 
 final class MenuDirective extends Facade
 {
-    protected static function getFacadeAccessor()
+    protected static function getFacadeAccessor(): string
     {
         return 'menu.menu.directive';
     }

@@ -3,6 +3,9 @@
 namespace Modules\Menu\Repositories\Eloquent;
 
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\DB;
 use Modules\Core\Repositories\Eloquent\EloquentBaseRepository;
@@ -14,7 +17,11 @@ use Modules\Menu\Repositories\MenuItemRepository;
 
 class EloquentMenuItemRepository extends EloquentBaseRepository implements MenuItemRepository
 {
-    public function create($data)
+    /**
+     * @param $data
+     * @return array|Builder|Collection|Model|null
+     */
+    public function create($data): array|Builder|Collection|Model|null
     {
         event($event = new MenuItemIsCreating($data));
         $menuItem = $this->model->create($event->getAttributes());
@@ -24,7 +31,12 @@ class EloquentMenuItemRepository extends EloquentBaseRepository implements MenuI
         return $menuItem;
     }
 
-    public function update($menuItem, $data)
+    /**
+     * @param $menuItem
+     * @param $data
+     * @return array|Builder|Collection|Model|null
+     */
+    public function update($menuItem, $data): array|Builder|Collection|Model|null
     {
         event($event = new MenuItemIsUpdating($menuItem, $data));
         $menuItem->update($event->getAttributes());
@@ -38,9 +50,9 @@ class EloquentMenuItemRepository extends EloquentBaseRepository implements MenuI
      * Get online root elements
      *
      * @param int $menuId
-     * @return object
+     * @return Collection
      */
-    public function rootsForMenu($menuId)
+    public function rootsForMenu(int $menuId): Collection
     {
         return $this->model->whereHas('translations', function (Builder $q) {
             $q->where('status', 1);
@@ -52,9 +64,9 @@ class EloquentMenuItemRepository extends EloquentBaseRepository implements MenuI
      * Get all root elements
      *
      * @param int $menuId
-     * @return object
+     * @return Collection
      */
-    public function allRootsForMenu($menuId)
+    public function allRootsForMenu(int $menuId): Collection
     {
         return $this->model->with('translations')->whereMenuId($menuId)->orderBy('parent_id')->orderBy('position')->get();
     }
@@ -62,9 +74,9 @@ class EloquentMenuItemRepository extends EloquentBaseRepository implements MenuI
     /**
      * Get Items to build routes
      *
-     * @return Array
+     * @return array
      */
-    public function getForRoutes()
+    public function getForRoutes(): array
     {
         $menuitems = DB::table('menu__menus')
             ->select(
@@ -96,9 +108,9 @@ class EloquentMenuItemRepository extends EloquentBaseRepository implements MenuI
      * Get the root menu item for the given menu id
      *
      * @param int $menuId
-     * @return object
+     * @return array|Builder|Collection|Model|null
      */
-    public function getRootForMenu($menuId)
+    public function getRootForMenu(int $menuId): array|Builder|Collection|Model|null
     {
         return $this->model->with('translations')->where(['menu_id' => $menuId, 'is_root' => true])->firstOrFail();
     }
@@ -109,7 +121,7 @@ class EloquentMenuItemRepository extends EloquentBaseRepository implements MenuI
      * @param int $menuId
      * @return object
      */
-    public function getTreeForMenu($menuId)
+    public function getTreeForMenu(int $menuId): object
     {
         $items = $this->rootsForMenu($menuId);
 
@@ -119,9 +131,9 @@ class EloquentMenuItemRepository extends EloquentBaseRepository implements MenuI
     /**
      * @param string $uri
      * @param string $locale
-     * @return object
+     * @return array|Builder|Collection|Model|null
      */
-    public function findByUriInLanguage($uri, $locale)
+    public function findByUriInLanguage(string $uri, string $locale): array|Builder|Collection|Model|null
     {
         return $this->model->whereHas('translations', function (Builder $q) use ($locale, $uri) {
             $q->where('status', 1);
@@ -130,7 +142,13 @@ class EloquentMenuItemRepository extends EloquentBaseRepository implements MenuI
         })->with('translations')->first();
     }
 
-    public function getItemsBy($params = false)
+
+    /**
+     * Get resources by an array of attributes
+     * @param object $params
+     * @return LengthAwarePaginator|Collection
+     */
+    public function getItemsBy($params = false): LengthAwarePaginator|Collection
     {
         /*== initialize query ==*/
         $query = $this->model->query();
@@ -199,7 +217,13 @@ class EloquentMenuItemRepository extends EloquentBaseRepository implements MenuI
         }
     }
 
-    public function getItem($criteria, $params = false)
+    /**
+     * Find a resource by id or slug
+     * @param string $criteria
+     * @param object $params
+     * @return Model|Collection|Builder|array|null
+     */
+    public function getItem(string $criteria, $params = false): Model|Collection|Builder|array|null
     {
         //Initialize query
         $query = $this->model->query();
@@ -231,7 +255,12 @@ class EloquentMenuItemRepository extends EloquentBaseRepository implements MenuI
         /*== REQUEST ==*/
         return $query->first();
     }
-    public function updateOrders($data)
+
+    /**
+     * @param $data
+     * @return array
+     */
+    public function updateOrders($data): array
     {
         $menuitems = [];
         foreach ($data['menuitems'] as $menuitem) {

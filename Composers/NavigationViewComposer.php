@@ -14,11 +14,11 @@ class NavigationViewComposer
     /**
      * @var MenuRepository
      */
-    private $menu;
+    private MenuRepository $menu;
     /**
      * @var MenuItemRepository
      */
-    private $menuItem;
+    private MenuItemRepository $menuItem;
 
     public function __construct(MenuRepository $menu, MenuItemRepository $menuItem)
     {
@@ -64,7 +64,7 @@ class NavigationViewComposer
      * @param object $children
      * @param Builder|MenuItem $menu
      */
-    private function addChildrenToMenu($name, $children, $menu)
+    private function addChildrenToMenu(string $name, object $children, MenuItem|Builder $menu)
     {
         $menu->dropdown($name, function (MenuItem $subMenu) use ($children) {
             foreach ($children as $child) {
@@ -91,10 +91,10 @@ class NavigationViewComposer
     /**
      * Check if the given menu item has children
      *
-     * @param  object $item
+     * @param object $item
      * @return bool
      */
-    private function hasChildren($item)
+    private function hasChildren(object $item): bool
     {
         return $item->items->count() > 0;
     }

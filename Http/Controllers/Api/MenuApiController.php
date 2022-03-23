@@ -2,6 +2,7 @@
 
 namespace Modules\Menu\Http\Controllers\Api;
 
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
@@ -34,46 +35,53 @@ class MenuApiController extends BaseApiController
   {
 
     try {
-      //Get Parameters from URL.
+
       $params = $this->getParamsRequest($request);
-      //Request to Repository
+
       $menus = $this->menu->getItemsBy($params);
-      //Response
+
       $response = ['data' => MenuTransformer::collection($menus)];
-      //If request pagination add meta-page
+
       $params->page ? $response["meta"] = ["page" => $this->pageTransformer($menus)] : false;
+
     } catch (\Exception $e) {
+      \Log::error($e);
       $status = $this->getStatusError($e->getCode());
       $response = ["errors" => $e->getMessage()];
+
     }
     //Return response
     return response()->json($response ?? ["data" => "Request successful"], $status ?? 200);
   }
 
-  /**
-   * GET A ITEM
-   *
-   * @param $criteria
-   * @return mixed
-   */
-  public function show($criteria, Request $request)
+    /**
+     * GET A ITEM
+     *
+     * @param string $criteria
+     * @param Request $request
+     * @return JsonResponse
+     */
+  public function show(string $criteria, Request $request): JsonResponse
   {
     try {
-      //Get Parameters from URL.
+
       $params = $this->getParamsRequest($request);
-      //Request to Repository
+
       $menu = $this->menu->getItem($criteria, $params);
-      //Break if no found item
+
       if (!$menu) throw new \Exception('Item not found', 204);
-      //Response
+
       $response = ["data" => new MenuTransformer($menu)];
-      //If request pagination add meta-page
-      $params->page ? $response["meta"] = ["page" => $this->pageTransformer($dataEntity)] : false;
+
+      $params->page ? $response["meta"] = ["page" => $this->pageTransformer($menu)] : false;
+
     } catch (\Exception $e) {
+
       $status = $this->getStatusError($e->getCode());
       $response = ["errors" => $e->getMessage()];
+
     }
-    //Return response
+
     return response()->json($response ?? ["data" => "Request successful"], $status ?? 200);
   }
 
@@ -81,26 +89,30 @@ class MenuApiController extends BaseApiController
    * CREATE A ITEM
    *
    * @param Request $request
-   * @return mixed
+   * @return JsonResponse
    */
-  public function create(Request $request)
+  public function create(Request $request): JsonResponse
   {
     \DB::beginTransaction();
     try {
       $data = $request->input('attributes') ?? [];//Get data
-      //Validate Request
+
       $this->validateRequestApi(new CreateMenuRequest($data));
-      //Create item
+
       $menu = $this->menu->create($data);
-      //Response
+
       $response = ["data" => new MenuTransformer($menu)];
-      \DB::commit(); //Commit to Data Base
+
+      \DB::commit();
+
     } catch (\Exception $e) {
-      \DB::rollback();//Rollback to Data Base
+
+      \DB::rollback();
       $status = $this->getStatusError($e->getCode());
       $response = ["errors" => $e->getMessage()];
+
     }
-    //Return response
+
     return response()->json($response ?? ["data" => "Request successful"], $status ?? 200);
   }
 
@@ -109,27 +121,29 @@ class MenuApiController extends BaseApiController
    *
    * @param $criteria
    * @param Request $request
-   * @return mixed
+   * @return JsonResponse
    */
-  public function update($criteria, Request $request)
+  public function update($criteria, Request $request): JsonResponse
   {
-    \DB::beginTransaction(); //DB Transaction
+    \DB::beginTransaction();
     try {
-      //Get data
+
       $data = $request->input('attributes') ?? [];//Get data
-      //Get Parameters from URL.
+
       $params = $this->getParamsRequest($request);
-      //Request to Repository
+
       $this->menu->updateBy($criteria, $data, $params);
-      //Response
+
       $response = ["data" => 'Item Updated'];
-      \DB::commit();//Commit to DataBase
+      \DB::commit();
+
     } catch (\Exception $e) {
-      \DB::rollback();//Rollback to Data Base
+      \DB::rollback();
       $status = $this->getStatusError($e->getCode());
       $response = ["errors" => $e->getMessage()];
+
     }
-    //Return response
+
     return response()->json($response ?? ["data" => "Request successful"], $status ?? 200);
   }
 
@@ -137,25 +151,29 @@ class MenuApiController extends BaseApiController
    * DELETE A ITEM
    *
    * @param $criteria
-   * @return mixed
+   * @return JsonResponse
    */
-  public function delete($criteria, Request $request)
+  public function delete($criteria, Request $request): JsonResponse
   {
     \DB::beginTransaction();
     try {
-      //Get params
+
       $params = $this->getParamsRequest($request);
-      //call Method delete
+
       $this->menu->deleteBy($criteria, $params);
-      //Response
+
       $response = ["data" => "Item deleted"];
-      \DB::commit();//Commit to Data Base
+
+      \DB::commit();
+
     } catch (\Exception $e) {
-      \DB::rollback();//Rollback to Data Base
+
+      \DB::rollback();
       $status = $this->getStatusError($e->getCode());
       $response = ["errors" => $e->getMessage()];
+
     }
-    //Return response
+
     return response()->json($response ?? ["data" => "Request successful"], $status ?? 200);
   }
 

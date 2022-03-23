@@ -2,6 +2,9 @@
 
 namespace Modules\Menu\Http\Controllers\Admin;
 
+use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
 use Modules\Core\Http\Controllers\Admin\AdminBaseController;
 use Modules\Menu\Entities\Menu;
 use Modules\Menu\Http\Requests\CreateMenuRequest;
@@ -15,15 +18,15 @@ class MenuController extends AdminBaseController
     /**
      * @var MenuRepository
      */
-    private $menu;
+    private MenuRepository $menu;
     /**
      * @var MenuItemRepository
      */
-    private $menuItem;
+    private MenuItemRepository $menuItem;
     /**
      * @var MenuRenderer
      */
-    private $menuRenderer;
+    private MenuRenderer $menuRenderer;
 
     public function __construct(
         MenuRepository $menu,
@@ -36,14 +39,14 @@ class MenuController extends AdminBaseController
         $this->menuRenderer = $menuRenderer;
     }
 
-    public function index()
+    public function index(): View|Factory|Application
     {
         $menus = $this->menu->all();
 
         return view('menu::admin.menus.index', compact('menus'));
     }
 
-    public function create()
+    public function create(): View|Factory|Application
     {
         return view('menu::admin.menus.create');
     }
@@ -56,7 +59,7 @@ class MenuController extends AdminBaseController
             ->withSuccess(trans('menu::messages.menu created'));
     }
 
-    public function edit(Menu $menu)
+    public function edit(Menu $menu): View|Factory|Application
     {
         $menuItems = $this->menuItem->allRootsForMenu($menu->id);
 

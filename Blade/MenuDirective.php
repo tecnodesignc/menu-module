@@ -6,11 +6,24 @@ use Illuminate\Support\Arr;
 
 final class MenuDirective
 {
+    /**
+     * @var
+     */
     private $name;
+    /**
+     * @var
+     */
     private $presenter;
+    /**
+     * @var
+     */
     private $bindings;
 
-    public function show($arguments)
+    /**
+     * @param $arguments
+     * @return string|null
+     */
+    public function show($arguments): ?string
     {
         $this->extractArguments($arguments);
 
@@ -32,7 +45,7 @@ final class MenuDirective
      * Prepare arguments and return menu
      * @return string|null
      */
-    private function returnMenu()
+    private function returnMenu(): ?string
     {
         $customPresenter = config('encore.menu.config.default_menu_presenter');
         if ($this->presenter === null && $customPresenter !== null) {
@@ -42,6 +55,9 @@ final class MenuDirective
         return app('menus')->get($this->name, $this->presenter, $this->bindings);
     }
 
+    /**
+     * @return string|null
+     */
     public function __toString()
     {
         return $this->returnMenu();

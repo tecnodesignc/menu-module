@@ -11,11 +11,11 @@ class RootMenuItemCreator
     /**
      * @var MenuItemRepository
      */
-    private $menuItem;
+    private MenuItemRepository $menuItem;
     /**
      * @var Setting
      */
-    private $setting;
+    private Setting $setting;
 
     public function __construct(MenuItemRepository $menuItem, Setting $setting)
     {
@@ -30,7 +30,6 @@ class RootMenuItemCreator
             'position' => 0,
             'is_root' => true,
         ];
-
         foreach ($this->getEnabledLocales() as $locale) {
             $data[$locale]['title'] = 'root';
         }
@@ -42,7 +41,7 @@ class RootMenuItemCreator
      * Return an array of enabled locales
      * @return array
      */
-    private function getEnabledLocales()
+    private function getEnabledLocales(): array
     {
         return json_decode($this->setting->get('core::locales', '{"en"}'));
     }

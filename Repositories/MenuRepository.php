@@ -10,5 +10,5 @@ interface MenuRepository extends BaseRepository
      * Get all online menus
      * @return object
      */
-    public function allOnline();
+    public function allOnline(): object;
 }

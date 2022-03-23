@@ -3,6 +3,9 @@
 namespace Modules\Menu\Repositories\Eloquent;
 
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Facades\App;
 use Modules\Core\Repositories\Eloquent\EloquentBaseRepository;
 use Modules\Menu\Events\MenuIsCreating;
@@ -13,7 +16,11 @@ use Modules\Menu\Repositories\MenuRepository;
 
 class EloquentMenuRepository extends EloquentBaseRepository implements MenuRepository
 {
-    public function create($data)
+    /**
+     * @param $data
+     * @return Model|Collection|Builder|array|null;
+     */
+    public function create($data): Model|Collection|Builder|array|null
     {
         event($event = new MenuIsCreating($data));
         $menu = $this->model->create($event->getAttributes());
@@ -23,7 +30,13 @@ class EloquentMenuRepository extends EloquentBaseRepository implements MenuRepos
         return $menu;
     }
 
-    public function update($menu, $data)
+    /**
+     * Update a resource
+     * @param  $model
+     * @param array $data
+     * @return Model|Collection|Builder|array|null
+     */
+    public function update($menu, array $data): Model|Collection|Builder|array|null
     {
         event($event = new MenuIsUpdating($menu, $data));
         $menu->update($event->getAttributes());
@@ -37,7 +50,7 @@ class EloquentMenuRepository extends EloquentBaseRepository implements MenuRepos
      * Get all online menus
      * @return object
      */
-    public function allOnline()
+    public function allOnline(): object
     {
         $locale = App::getLocale();
 
@@ -47,8 +60,12 @@ class EloquentMenuRepository extends EloquentBaseRepository implements MenuRepos
         })->with('translations')->orderBy('created_at', 'DESC')->get();
     }
 
-
-    public function getItemsBy($params = false)
+    /**
+     * Get resources by an array of attributes
+     * @param object $params
+     * @return LengthAwarePaginator|Collection
+     */
+    public function getItemsBy($params = false): LengthAwarePaginator|Collection
     {
         /*== initialize query ==*/
         $query = $this->model->query();
@@ -112,7 +129,14 @@ class EloquentMenuRepository extends EloquentBaseRepository implements MenuRepos
         }
     }
 
-    public function getItem($criteria, $params = false)
+
+    /**
+     * Find a resource by id or slug
+     * @param string $criteria
+     * @param object $params
+     * @return Model|Collection|Builder|array|null
+     */
+    public function getItem($criteria, $params = false): Model|Collection|Builder|array|null
     {
         //Initialize query
         $query = $this->model->query();

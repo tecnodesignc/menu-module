@@ -1,10 +1,15 @@
 url: https://github.com/EncoreCms/Platform
 versions:
-   "1.0.0":
-       - Initial Version Module
+
+   "2.0.0":
+     changed:
+       - Laravel 9 compatibility
    "1.0.1":
-     addes:
-        - NoCleaning funtion in MenuItemController and EloquentMenuItemRepository
-        - Attribute class in navbarPresenter and  NavbarRightPresenter
-        - getItemBy and getTtem in EloquentMenuRepository
+     added:
+       - NoCleaning funtion in MenuItemController and EloquentMenuItemRepository
+       - Attribute class in navbarPresenter and  NavbarRightPresenter
+       - getItemBy and getTtem in EloquentMenuRepository
+   "1.0.0":
+     added:
+       - Initial Version Module
 

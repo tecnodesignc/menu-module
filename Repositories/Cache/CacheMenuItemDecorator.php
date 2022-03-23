@@ -7,10 +7,6 @@ use Modules\Menu\Repositories\MenuItemRepository;
 
 class CacheMenuItemDecorator extends BaseCacheDecorator implements MenuItemRepository
 {
-    /**
-     * @var MenuItemRepository
-     */
-    protected $repository;
 
     public function __construct(MenuItemRepository $menuItem)
     {
@@ -20,12 +16,12 @@ class CacheMenuItemDecorator extends BaseCacheDecorator implements MenuItemRepos
     }
 
     /**
-     * Get all root elements
+     * Get online root elements
      *
-     * @param  int   $menuId
-     * @return mixed
+     * @param int $menuId
+     * @return object
      */
-    public function rootsForMenu($menuId)
+    public function rootsForMenu(int $menuId): object
     {
         return $this->remember(function () use ($menuId) {
             return $this->repository->rootsForMenu($menuId);
@@ -34,10 +30,9 @@ class CacheMenuItemDecorator extends BaseCacheDecorator implements MenuItemRepos
 
     /**
      * Get the menu items ready for routes
-     *
      * @return mixed
      */
-    public function getForRoutes()
+    public function getForRoutes():mixed
     {
         return $this->remember(function () {
             return $this->repository->getForRoutes();
@@ -47,10 +42,10 @@ class CacheMenuItemDecorator extends BaseCacheDecorator implements MenuItemRepos
     /**
      * Get the root menu item for the given menu id
      *
-     * @param  int    $menuId
+     * @param int $menuId
      * @return object
      */
-    public function getRootForMenu($menuId)
+    public function getRootForMenu(int $menuId): object
     {
         return $this->remember(function () use ($menuId) {
             return $this->repository->getRootForMenu($menuId);
@@ -60,10 +55,10 @@ class CacheMenuItemDecorator extends BaseCacheDecorator implements MenuItemRepos
     /**
      * Return a complete tree for the given menu id
      *
-     * @param  int    $menuId
+     * @param int $menuId
      * @return object
      */
-    public function getTreeForMenu($menuId)
+    public function getTreeForMenu(int $menuId): object
     {
         return $this->remember(function () use ($menuId) {
             return $this->repository->getTreeForMenu($menuId);
@@ -73,10 +68,10 @@ class CacheMenuItemDecorator extends BaseCacheDecorator implements MenuItemRepos
     /**
      * Get all root elements
      *
-     * @param  int    $menuId
+     * @param int $menuId
      * @return object
      */
-    public function allRootsForMenu($menuId)
+    public function allRootsForMenu(int $menuId): object
     {
         return $this->remember(function () use ($menuId) {
             return $this->repository->allRootsForMenu($menuId);
@@ -84,11 +79,11 @@ class CacheMenuItemDecorator extends BaseCacheDecorator implements MenuItemRepos
     }
 
     /**
-     * @param  string $uri
-     * @param  string $locale
+     * @param string $uri
+     * @param string $locale
      * @return object
      */
-    public function findByUriInLanguage($uri, $locale)
+    public function findByUriInLanguage(string $uri, string $locale): object
     {
         return $this->remember(function () use ($uri, $locale) {
             return $this->repository->findByUriInLanguage($uri, $locale);

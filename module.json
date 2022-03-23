@@ -1,21 +1,27 @@
 {
-  "name": "Menu",
-  "alias": "menu",
-  "description": "Managing menus.",
-  "keywords": [
-  ],
-  "version": "1.0.1",
-  "active": 1,
-  "priority": 1,
-  "providers": [
-    "Modules\\Menu\\Providers\\RouteServiceProvider",
-    "Modules\\Menu\\Providers\\MenuServiceProvider",
-    "Modules\\Menu\\Providers\\EventServiceProvider",
-    "Nwidart\\Menus\\MenusServiceProvider"
-  ],
-  "aliases": {
-    "Menu": "Nwidart\\Menus\\Facades\\Menu",
-    "MenuDirective": "Modules\\Menu\\Blade\\Facades\\MenuDirective"
-  },
-  "files": []
+    "title": "Menu",
+    "name": "Menu",
+    "alias": "menu",
+    "description": "Managing menus.",
+    "keywords": [
+        "EncoreCMS",
+        "Menu"
+    ],
+    "author": "Marcos Rativa",
+    "require": {},
+    "version": "2.0.0",
+    "active": 1,
+    "priority": 1,
+    "providers": [
+        "Modules\\Menu\\Providers\\RouteServiceProvider",
+        "Modules\\Menu\\Providers\\MenuServiceProvider",
+        "Modules\\Menu\\Providers\\EventServiceProvider",
+        "Nwidart\\Menus\\MenusServiceProvider"
+    ],
+    "aliases": {
+        "Menu": "Nwidart\\Menus\\Facades\\Menu",
+        "MenuDirective": "Modules\\Menu\\Blade\\Facades\\MenuDirective"
+    },
+    "files": [],
+    "minimumCoreVersion": "2.0"
 }
