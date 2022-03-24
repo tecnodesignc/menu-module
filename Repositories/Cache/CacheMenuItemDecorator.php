@@ -2,6 +2,9 @@
 
 namespace Modules\Menu\Repositories\Cache;
 
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Database\Eloquent\Model;
 use Modules\Core\Repositories\Cache\BaseCacheDecorator;
 use Modules\Menu\Repositories\MenuItemRepository;
 
@@ -19,9 +22,9 @@ class CacheMenuItemDecorator extends BaseCacheDecorator implements MenuItemRepos
      * Get online root elements
      *
      * @param int $menuId
-     * @return object
+     * @return Collection
      */
-    public function rootsForMenu(int $menuId): object
+    public function rootsForMenu(int $menuId): Collection
     {
         return $this->remember(function () use ($menuId) {
             return $this->repository->rootsForMenu($menuId);
@@ -41,11 +44,10 @@ class CacheMenuItemDecorator extends BaseCacheDecorator implements MenuItemRepos
 
     /**
      * Get the root menu item for the given menu id
-     *
      * @param int $menuId
-     * @return object
+     * @return array|Builder|Collection|Model|null
      */
-    public function getRootForMenu(int $menuId): object
+    public function getRootForMenu(int $menuId):array|Builder|Collection|Model|null
     {
         return $this->remember(function () use ($menuId) {
             return $this->repository->getRootForMenu($menuId);
@@ -69,9 +71,9 @@ class CacheMenuItemDecorator extends BaseCacheDecorator implements MenuItemRepos
      * Get all root elements
      *
      * @param int $menuId
-     * @return object
+     * @return Collection
      */
-    public function allRootsForMenu(int $menuId): object
+    public function allRootsForMenu(int $menuId): Collection
     {
         return $this->remember(function () use ($menuId) {
             return $this->repository->allRootsForMenu($menuId);
@@ -81,9 +83,9 @@ class CacheMenuItemDecorator extends BaseCacheDecorator implements MenuItemRepos
     /**
      * @param string $uri
      * @param string $locale
-     * @return object
+     * @return array|Builder|Collection|Model|null
      */
-    public function findByUriInLanguage(string $uri, string $locale): object
+    public function findByUriInLanguage(string $uri, string $locale): array|Builder|Collection|Model|null
     {
         return $this->remember(function () use ($uri, $locale) {
             return $this->repository->findByUriInLanguage($uri, $locale);

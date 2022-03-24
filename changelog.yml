@@ -1,6 +1,9 @@
-url: https://github.com/EncoreCms/Platform
+url: https://github.com/tecnodesignc/menu-module
 versions:
-
+  "2.0.1":
+    changed:
+      - NavbarRightPresenter modify for Bootstrap 5
+      - CacheMenuItemDecorator Support for File Drive Cache
    "2.0.0":
      changed:
        - Laravel 9 compatibility

@@ -1,7 +1,7 @@
 {
     "name": "tecnodesignc/menu-module",
     "type": "encore-module",
-    "description": "Menu module for EncoreCMS. Handles all the menus.",
+    "description": "Menu module for EncoreCMS 2. Handles all the menus.",
     "keywords": [
         "encorecms",
         "menu",
