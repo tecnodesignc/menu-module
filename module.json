@@ -9,7 +9,7 @@
     ],
     "author": "Marcos Rativa",
     "require": {},
-    "version": "2.0.0",
+    "version": "2.1.0",
     "active": 1,
     "priority": 1,
     "providers": [
@@ -23,5 +23,7 @@
         "MenuDirective": "Modules\\Menu\\Blade\\Facades\\MenuDirective"
     },
     "files": [],
-    "minimumCoreVersion": "2.0"
+    "minimumCoreVersion": "2.1",
+    "compatibility": "2.1",
+    "authors": ["Marcos Rativa"]
 }

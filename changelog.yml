@@ -1,18 +1,20 @@
 url: https://github.com/tecnodesignc/menu-module
 versions:
+  "2.1.0":
+    changed:
+      - Laravel 10 compatibility
   "2.0.1":
     changed:
       - NavbarRightPresenter modify for Bootstrap 5
       - CacheMenuItemDecorator Support for File Drive Cache
-   "2.0.0":
-     changed:
-       - Laravel 9 compatibility
-   "1.0.1":
-     added:
-       - NoCleaning funtion in MenuItemController and EloquentMenuItemRepository
-       - Attribute class in navbarPresenter and  NavbarRightPresenter
-       - getItemBy and getTtem in EloquentMenuRepository
-   "1.0.0":
-     added:
-       - Initial Version Module
-
+  "2.0.0":
+    changed:
+     - Laravel 9 compatibility
+  "1.0.1":
+    added:
+      - NoCleaning funtion in MenuItemController and EloquentMenuItemRepository
+      - Attribute class in navbarPresenter and  NavbarRightPresenter
+      - getItemBy and getTtem in EloquentMenuRepository
+  "1.0.0":
+    added:
+      - Initial Version Module
