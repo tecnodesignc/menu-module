@@ -1,7 +1,7 @@
 {
     "name": "tecnodesignc/menu-module",
     "type": "encore-module",
-    "description": "Menu module for EncoreCMS 2. Handles all the menus.",
+    "description": "Menu module for EncoreCMS 3. Handles all the menus.",
     "keywords": [
         "encorecms",
         "menu",
@@ -23,11 +23,11 @@
     },
     "extra": {
         "branch-alias": {
-            "dev-master": "2.0.x-dev"
+            "dev-master": "3.0.x-dev"
         }
     },
     "require": {
-        "php": ">=8.0",
+        "php": ">=8.1",
         "composer/installers": "^2.1",
         "tecnodesignc/laravel-menus": "^9.0",
         "typicms/nestablecollection": "^3.0"
